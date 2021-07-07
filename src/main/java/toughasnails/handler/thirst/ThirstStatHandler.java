@@ -1,5 +1,8 @@
 package toughasnails.handler.thirst;
 
+import com.stargatemc.constants.NpcRace;
+import com.stargatemc.data.PerWorldData;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -20,112 +23,127 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import toughasnails.api.TANCapabilities;
 import toughasnails.thirst.ThirstHandler;
 
-public class ThirstStatHandler
-{
-    @SubscribeEvent
-    public void onPlayerJump(LivingJumpEvent event)
-    {
-        World world = event.getEntity().world;
+public class ThirstStatHandler {
+	@SubscribeEvent
+	public void onPlayerJump(LivingJumpEvent event) {
+		World world = event.getEntity().world;
 
-        if (!world.isRemote && event.getEntity() instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) event.getEntity();
+		if (!world.isRemote && event.getEntity() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntity();
 
-            if (!player.isCreative()) {
-                ThirstHandler thirstStats = (ThirstHandler) player.getCapability(TANCapabilities.THIRST, null);
+			if (!player.isCreative()) {
+				ThirstHandler thirstStats = (ThirstHandler) player.getCapability(TANCapabilities.THIRST, null);
 
-                if (player.isSprinting()) {
-                    thirstStats.addExhaustion(0.8F);
-                } else {
-                    thirstStats.addExhaustion(0.2F);
-                }
-            }
-        }
-    }
-    
-    @SubscribeEvent
-    public void onPlayerHurt(LivingHurtEvent event)
-    {
-        World world = event.getEntity().world;
+				if (PerWorldData.getRace(player.getUniqueID()) != null) {
+					if (PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
+							|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
+							|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+						return;
+				}
+				if (player.isSprinting()) {
+					thirstStats.addExhaustion(0.8F);
+				} else {
+					thirstStats.addExhaustion(0.2F);
+				}
+			}
+		}
+	}
 
-        if (!world.isRemote && event.getAmount() != 0.0F)
-        {
-            if (event.getEntity() instanceof EntityPlayer)
-            {
-                EntityPlayer player = (EntityPlayer)event.getEntity();
+	@SubscribeEvent
+	public void onPlayerHurt(LivingHurtEvent event) {
+		World world = event.getEntity().world;
 
-                if (!player.isCreative())
-                {
-                    ThirstHandler thirstStats = (ThirstHandler) player.getCapability(TANCapabilities.THIRST, null);
-                    //Uses hunger values for now, may change in the future
-                    thirstStats.addExhaustion(event.getSource().getHungerDamage());
-                }
-            }
-        }
-    }
-    
-    @SubscribeEvent
-    public void onPlayerAttackEntity(AttackEntityEvent event)
-    {
-        World world = event.getEntity().world;
-        Entity target = event.getTarget();
-        
-        if (!world.isRemote)
-        {
-            EntityPlayer player = event.getEntityPlayer();
-            
-            if (target.canBeAttackedWithItem() && !player.isCreative())
-            {
-                if (!target.hitByEntity(player))
-                {
-                    float attackDamage = (float)player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-                    float weaponAttackDamage = 0.0F;
-                    
-                    if (target instanceof EntityLivingBase)
-                    {
-                        weaponAttackDamage = EnchantmentHelper.getModifierForCreature(player.getHeldItem(EnumHand.MAIN_HAND), ((EntityLivingBase)target).getCreatureAttribute());
-                    }
-                    else
-                    {
-                        weaponAttackDamage = EnchantmentHelper.getModifierForCreature(player.getHeldItem(EnumHand.MAIN_HAND), EnumCreatureAttribute.UNDEFINED);
-                    }
-                    
-                    if (attackDamage > 0.0F || weaponAttackDamage > 0.0F)
-                    {
-                        boolean canAttack = target.attackEntityFrom(DamageSource.causePlayerDamage(player), 0.0F);
-                        
-                        if (canAttack)
-                        {
-                            //The only part of this method that is new - the rest is recreating the surrounding circumstances in attackTargetEntityWithCurrentItem
-                            ThirstHandler thirstStats = (ThirstHandler)player.getCapability(TANCapabilities.THIRST, null);
-                            
-                            thirstStats.addExhaustion(0.3F);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    @SubscribeEvent
-    public void onBlockBreak(BlockEvent.BreakEvent event)
-    {
-        World world = event.getWorld();
-        EntityPlayer player = event.getPlayer();
-        BlockPos pos = event.getPos();
-        IBlockState state = event.getState();
-        
-        if (!world.isRemote && !player.isCreative())
-        {
-            boolean canHarvestBlock = state.getBlock().canHarvestBlock(world, pos, player);
-            
-            if (canHarvestBlock)
-            {
-                //The only part of this method that is new - the rest is recreating the surrounding circumstances in func_180237_b
-                ThirstHandler thirstStats = (ThirstHandler)player.getCapability(TANCapabilities.THIRST, null);
-                
-                thirstStats.addExhaustion(0.025F);
-            }
-        }
-    }
+		if (!world.isRemote && event.getAmount() != 0.0F) {
+			if (event.getEntity() instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer) event.getEntity();
+
+				if (PerWorldData.getRace(player.getUniqueID()) != null) {
+					if (PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
+							|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
+							|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+						return;
+				}
+
+				if (!player.isCreative()) {
+					ThirstHandler thirstStats = (ThirstHandler) player.getCapability(TANCapabilities.THIRST, null);
+					// Uses hunger values for now, may change in the future
+					thirstStats.addExhaustion(event.getSource().getHungerDamage());
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerAttackEntity(AttackEntityEvent event) {
+		World world = event.getEntity().world;
+		Entity target = event.getTarget();
+
+		if (!world.isRemote) {
+			EntityPlayer player = event.getEntityPlayer();
+
+			if (PerWorldData.getRace(player.getUniqueID()) != null) {
+				if (PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
+						|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
+						|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+					return;
+			}
+
+			if (target.canBeAttackedWithItem() && !player.isCreative()) {
+				if (!target.hitByEntity(player)) {
+					float attackDamage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
+							.getAttributeValue();
+					float weaponAttackDamage = 0.0F;
+
+					if (target instanceof EntityLivingBase) {
+						weaponAttackDamage = EnchantmentHelper.getModifierForCreature(
+								player.getHeldItem(EnumHand.MAIN_HAND),
+								((EntityLivingBase) target).getCreatureAttribute());
+					} else {
+						weaponAttackDamage = EnchantmentHelper.getModifierForCreature(
+								player.getHeldItem(EnumHand.MAIN_HAND), EnumCreatureAttribute.UNDEFINED);
+					}
+
+					if (attackDamage > 0.0F || weaponAttackDamage > 0.0F) {
+						boolean canAttack = target.attackEntityFrom(DamageSource.causePlayerDamage(player), 0.0F);
+
+						if (canAttack) {
+							// The only part of this method that is new - the rest is recreating the
+							// surrounding circumstances in attackTargetEntityWithCurrentItem
+							ThirstHandler thirstStats = (ThirstHandler) player.getCapability(TANCapabilities.THIRST,
+									null);
+
+							thirstStats.addExhaustion(0.3F);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onBlockBreak(BlockEvent.BreakEvent event) {
+		World world = event.getWorld();
+		EntityPlayer player = event.getPlayer();
+		BlockPos pos = event.getPos();
+		IBlockState state = event.getState();
+
+		if (PerWorldData.getRace(player.getUniqueID()) != null) {
+			if (PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
+					|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
+					|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+				return;
+		}
+
+		if (!world.isRemote && !player.isCreative()) {
+			boolean canHarvestBlock = state.getBlock().canHarvestBlock(world, pos, player);
+
+			if (canHarvestBlock) {
+				// The only part of this method that is new - the rest is recreating the
+				// surrounding circumstances in func_180237_b
+				ThirstHandler thirstStats = (ThirstHandler) player.getCapability(TANCapabilities.THIRST, null);
+
+				thirstStats.addExhaustion(0.025F);
+			}
+		}
+	}
 }
