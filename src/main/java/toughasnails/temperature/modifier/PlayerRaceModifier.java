@@ -1,6 +1,7 @@
 package toughasnails.temperature.modifier;
 
 import com.stargatemc.constants.NpcRace;
+import com.stargatemc.data.PerWorldData;
 import com.stargatemc.data.PlayerData;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +31,7 @@ public class PlayerRaceModifier extends TemperatureModifier
         BlockPos playerPos = player.getPosition();
         NpcRace race = PlayerData.getRace(player.getUniqueID());
 		DimensionProperties props = DimensionManager.getEffectiveDimId(player.world.provider.getDimension(),playerPos);
-		if (props == null) return new Temperature(temperatureLevel);
+		if (props == null || PerWorldData.isProtected(player.world.provider.getDimension())) return new Temperature(temperatureLevel);
 		
 		Temps temp = Temps.getTempFromValue(props.getAverageTemp());		
 		AtmosphereTypes atmType = AtmosphereTypes.getAtmosphereTypeFromValue(props.getAtmosphereDensity());
