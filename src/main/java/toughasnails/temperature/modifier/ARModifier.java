@@ -35,7 +35,7 @@ public class ARModifier extends TemperatureModifier
         	}
         }
 
-        monitor.addEntry(new IModifierMonitor.Context(this.getId(), "AvgTemp", initialTemperature, new Temperature(newTemperatureLevel)));
+        monitor.addEntry(new IModifierMonitor.Context(this.getId(), "Average Temperature", initialTemperature, new Temperature(newTemperatureLevel)));
         
         return new Temperature(newTemperatureLevel);
     }
