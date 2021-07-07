@@ -3,6 +3,7 @@ package toughasnails.thirst;
 import javax.vecmath.Vector3d;
 
 import com.stargatemc.data.PerWorldData;
+import com.stargatemc.data.PlayerData;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,10 +44,10 @@ public class ThirstHandler extends StatHandlerBase implements IThirst {
 	public void update(EntityPlayer player, World world, Phase phase) {
 		if (!SyncedConfig.getBooleanValue(GameplayOption.ENABLE_THIRST) || player.isCreative())
 			return;
-		if (PerWorldData.getRace(player.getUniqueID()) != null) {
-			if (PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
-					|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
-					|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+		if (PlayerData.getRace(player.getUniqueID()) != null) {
+			if (PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
+					|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
+					|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
 				return;
 		}
 

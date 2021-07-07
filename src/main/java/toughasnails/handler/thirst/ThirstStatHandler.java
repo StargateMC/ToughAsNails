@@ -1,7 +1,7 @@
 package toughasnails.handler.thirst;
 
 import com.stargatemc.constants.NpcRace;
-import com.stargatemc.data.PerWorldData;
+import com.stargatemc.data.PlayerData;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -34,10 +34,10 @@ public class ThirstStatHandler {
 			if (!player.isCreative()) {
 				ThirstHandler thirstStats = (ThirstHandler) player.getCapability(TANCapabilities.THIRST, null);
 
-				if (PerWorldData.getRace(player.getUniqueID()) != null) {
-					if (PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
-							|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
-							|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+				if (PlayerData.getRace(player.getUniqueID()) != null) {
+					if (PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
 						return;
 				}
 				if (player.isSprinting()) {
@@ -57,10 +57,10 @@ public class ThirstStatHandler {
 			if (event.getEntity() instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) event.getEntity();
 
-				if (PerWorldData.getRace(player.getUniqueID()) != null) {
-					if (PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
-							|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
-							|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+				if (PlayerData.getRace(player.getUniqueID()) != null) {
+					if (PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
 						return;
 				}
 
@@ -81,10 +81,10 @@ public class ThirstStatHandler {
 		if (!world.isRemote) {
 			EntityPlayer player = event.getEntityPlayer();
 
-			if (PerWorldData.getRace(player.getUniqueID()) != null) {
-				if (PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
-						|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
-						|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+			if (PlayerData.getRace(player.getUniqueID()) != null) {
+				if (PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
+						|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
+						|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
 					return;
 			}
 
@@ -127,10 +127,10 @@ public class ThirstStatHandler {
 		BlockPos pos = event.getPos();
 		IBlockState state = event.getState();
 
-		if (PerWorldData.getRace(player.getUniqueID()) != null) {
-			if (PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
-					|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
-					|| PerWorldData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+		if (PlayerData.getRace(player.getUniqueID()) != null) {
+			if (PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
+					|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
+					|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
 				return;
 		}
 
