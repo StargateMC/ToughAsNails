@@ -26,7 +26,9 @@ import toughasnails.network.message.MessageUpdateStat;
 import toughasnails.temperature.modifier.*;
 import toughasnails.temperature.modifier.TemperatureModifier.ExternalModifier;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import static toughasnails.api.temperature.TemperatureHelper.registerTemperatureModifier;
@@ -43,6 +45,7 @@ public class TemperatureHandler extends StatHandlerBase implements ITemperature
     static
     {
         registerTemperatureModifier(new AltitudeModifier("altitude"));
+        registerTemperatureModifier(new ARModifier("avgTemp"));
         registerTemperatureModifier(new ArmorModifier("armor"));
         registerTemperatureModifier(new BiomeModifier("biome"));
         registerTemperatureModifier(new PlayerStateModifier("player_state"));
