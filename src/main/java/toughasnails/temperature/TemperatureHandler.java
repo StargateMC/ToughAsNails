@@ -2,6 +2,8 @@ package toughasnails.temperature;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.stargatemc.api.CoreAPI;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -158,11 +160,13 @@ public class TemperatureHandler extends StatHandlerBase implements ITemperature
             {
                 player.removePotionEffect(TANPotions.hypothermia);
                 player.addPotionEffect(new PotionEffect(TANPotions.hypothermia, 200, 0));
+                CoreAPI.sendInfo(player,  "Your freezing.. find a way to warm up, fast!");
             }
             else if (this.temperatureLevel >= hyperRangeStart && (!player.isPotionActive(TANPotions.heat_resistance)) && (temperatureLevel > prevTemperatureLevel || !player.isPotionActive(TANPotions.hyperthermia)))
             {
                 player.removePotionEffect(TANPotions.hyperthermia);
                 player.addPotionEffect(new PotionEffect(TANPotions.hyperthermia, 200, 0));
+                CoreAPI.sendMessage(player,  "Your overheating.. find a way to cool down, fast!", true);
             }
         }
     }
