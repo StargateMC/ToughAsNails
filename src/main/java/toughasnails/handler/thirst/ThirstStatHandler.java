@@ -37,7 +37,9 @@ public class ThirstStatHandler {
 				if (PlayerData.getRace(player.getUniqueID()) != null) {
 					if (PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
 							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
-							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN)
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.WRAITH)
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASCENDED))
 						return;
 				}
 				if (player.isSprinting()) {
@@ -60,7 +62,9 @@ public class ThirstStatHandler {
 				if (PlayerData.getRace(player.getUniqueID()) != null) {
 					if (PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
 							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
-							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN)
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.WRAITH)
+							|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASCENDED))
 						return;
 				}
 
@@ -130,7 +134,9 @@ public class ThirstStatHandler {
 		if (PlayerData.getRace(player.getUniqueID()) != null) {
 			if (PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR)
 					|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.REPLICATOR_ADVANCE_FORCE)
-					|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN))
+					|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASURAN)
+					|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.WRAITH)
+					|| PlayerData.getRace(player.getUniqueID()).equals(NpcRace.ASCENDED))
 				return;
 		}
 
