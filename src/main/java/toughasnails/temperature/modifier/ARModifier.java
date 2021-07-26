@@ -1,5 +1,7 @@
 package toughasnails.temperature.modifier;
 
+import com.stargatemc.data.PerWorldData;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -23,7 +25,7 @@ public class ARModifier extends TemperatureModifier {
 
 		if (world.provider.isSurfaceWorld()) {
 			DimensionProperties props = DimensionManager.getEffectiveDimId(world.provider.getDimension(), pos);
-			if (props != null) {
+			if (props != null && !PerWorldData.isProtected(props.getId())) {
 				int ideal = Temps.NORMAL.getTemp();
 				if (props.getAverageTemp() > ideal) {
 					newTemperatureLevel += (props.getAverageTemp() - ideal);
@@ -34,7 +36,7 @@ public class ARModifier extends TemperatureModifier {
 			}
 		}
 
-		monitor.addEntry(new IModifierMonitor.Context(this.getId(), "Average Temperature", initialTemperature,
+		monitor.addEntry(new IModifierMonitor.Context(this.getId(), "Planet Base Temperature", initialTemperature,
 				new Temperature(newTemperatureLevel)));
 
 		return new Temperature(newTemperatureLevel);
