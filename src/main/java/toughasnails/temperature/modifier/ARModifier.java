@@ -27,11 +27,14 @@ public class ARModifier extends TemperatureModifier {
 			DimensionProperties props = DimensionManager.getEffectiveDimId(world.provider.getDimension(), pos);
 			if (props != null && !PerWorldData.isProtected(props.getId())) {
 				int ideal = Temps.NORMAL.getTemp();
+				int difference = Math.abs(ideal - props.getAverageTemp());
+				if (difference != 0)
+					difference /= 4;
 				if (props.getAverageTemp() > ideal) {
-					newTemperatureLevel += (props.getAverageTemp() - ideal);
+					newTemperatureLevel += difference;
 				}
 				if (props.getAverageTemp() < ideal) {
-					newTemperatureLevel -= (ideal - props.getAverageTemp());
+					newTemperatureLevel -= difference;
 				}
 			}
 		}
