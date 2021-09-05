@@ -23,7 +23,7 @@ public class ARModifier extends TemperatureModifier {
 		int temperatureLevel = initialTemperature.getRawValue();
 		int newTemperatureLevel = temperatureLevel;
 
-		if (world.provider.isSurfaceWorld()) {
+		if (world.provider.isSurfaceWorld() && !world.isRemote) {
 			DimensionProperties props = DimensionManager.getEffectiveDimId(world.provider.getDimension(), pos);
 			if (props != null && !PerWorldData.isProtected(props.getId())) {
 				int ideal = Temps.NORMAL.getTemp();
