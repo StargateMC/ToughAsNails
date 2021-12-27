@@ -83,28 +83,7 @@ public class TANCommand extends CommandBase
     
     private void setTemperature(ICommandSender sender, String[] args) throws CommandException
     {
-        EntityPlayerMP player = getCommandSenderAsPlayer(sender);
-        TemperatureHandler temperatureStats = (TemperatureHandler)player.getCapability(TANCapabilities.TEMPERATURE, null);
-        int newTemp = parseInt(args[1], 0, TemperatureScale.getScaleTotal());
-        Temperature playerTemp = temperatureStats.getTemperature();
-
-        if (SyncedConfig.getBooleanValue(GameplayOption.ENABLE_TEMPERATURE))
-    	{
-	        //Remove any existing potion effects for hypo/hyperthermia
-	        player.removePotionEffect(TANPotions.hypothermia);
-	        player.removePotionEffect(TANPotions.hyperthermia);
-	
-	        //Reset the change timer to 0
-	        temperatureStats.setChangeTime(0);
-	        //Set to the new temperature
-	        temperatureStats.setTemperature(new Temperature(newTemp));
-	
-	        sender.sendMessage(new TextComponentTranslation("commands.toughasnails.settemp.success", newTemp));
-    	}
-        else
-        {
-        	sender.sendMessage(new TextComponentTranslation("commands.toughasnails.settemp.disabled"));
-        }
+    	sender.sendMessage(new TextComponentTranslation("Command is disabled"));
     }
     
     @Override
