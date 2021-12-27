@@ -36,68 +36,52 @@ public class PlayerRaceModifier extends TemperatureModifier {
 		Temps temp = Temps.getTempFromValue(props.getAverageTemp());
 		AtmosphereTypes atmType = AtmosphereTypes.getAtmosphereTypeFromValue(props.getAtmosphereDensity());
 
-		switch (race) {
-		case Ancient:
-			if (temp.colderThan(Temps.COLD))
-				newTemperatureLevel -= 25;
-			if (temp.hotterThan(Temps.HOT))
-				newTemperatureLevel += 25;
-			break;
-		case Asgard:
-			if (temp.colderThan(Temps.COLD))
-				newTemperatureLevel -= 25;
-			if (temp.hotterThan(Temps.NORMAL))
-				newTemperatureLevel += 25;
-			break;
-		case Asuran:
-			if (temp.colderThan(Temps.COLD))
-				newTemperatureLevel -= 5;
-			if (temp.hotterThan(Temps.HOT))
-				newTemperatureLevel += 5;
-			break;
-		case Goauld:
-			if (temp.colderThan(Temps.COLD))
-				newTemperatureLevel -= 20;
-			if (temp.hotterThan(Temps.HOT))
-				newTemperatureLevel += 20;
-			break;
-		case Jaffa:
-			if (temp.colderThan(Temps.COLD))
-				newTemperatureLevel -= 35;
-			if (temp.hotterThan(Temps.HOT))
-				newTemperatureLevel += 35;
-			break;
-		case Lucian:
-			break;
-		case Ori:
-			break;
-		case Replicator:
-			if (temp.colderThan(Temps.COLD))
-				newTemperatureLevel -= 10;
-			if (temp.hotterThan(Temps.HOT))
-				newTemperatureLevel += 10;
-			break;
-		case Tauri:
-			break;
-		case Tokra:
-			if (temp.colderThan(Temps.COLD))
-				newTemperatureLevel -= 25;
-			if (temp.hotterThan(Temps.HOT))
-				newTemperatureLevel += 25;
-			break;
-		case Wraith:
-			if (temp.colderThan(Temps.COLD))
-				newTemperatureLevel -= 25;
-			if (temp.hotterThan(Temps.HOT))
-				newTemperatureLevel += 25;
-			break;
-		default:
-			if (temp.colderThan(Temps.NORMAL))
-				newTemperatureLevel -= 50;
-			if (temp.hotterThan(Temps.NORMAL))
-				newTemperatureLevel += 50;
-			break;
+		if (player.world.provider.isSurfaceWorld()) {
+			if (props != null) {
+				int ideal = Temps.NORMAL.getTemp();
+				int difference = Math.abs(ideal - props.getAverageTemp());
+				if (difference != 0) {
 
+					switch (race) {
+					case Ancient:
+						difference /= 5;
+						break;
+					case Asgard:
+						difference /= 2;
+						break;
+					case Asuran:
+						difference /= 14;
+						break;
+					case Goauld:
+						difference /= 6;
+						break;
+					case Jaffa:
+						difference /= 5;
+						break;
+					case Lucian:
+						break;
+					case Replicator:
+						difference /= 12;
+						break;
+					case Tokra:
+						difference /= 6;
+						break;
+					case Wraith:
+						difference /= 7;
+						break;
+					default:
+						difference /= 4;
+						break;
+
+					}
+				}
+				if (props.getAverageTemp() > ideal) {
+					newTemperatureLevel += difference;
+				}
+				if (props.getAverageTemp() < ideal) {
+					newTemperatureLevel -= difference;
+				}
+			}
 		}
 
 		monitor.addEntry(new IModifierMonitor.Context(this.getId(), "Race", initialTemperature,
