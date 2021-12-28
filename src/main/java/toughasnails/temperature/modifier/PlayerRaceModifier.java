@@ -76,10 +76,10 @@ public class PlayerRaceModifier extends TemperatureModifier {
 					}
 				}
 				if (props.getAverageTemp() > ideal) {
-					newTemperatureLevel -= difference;
+					newTemperatureLevel += difference;
 				}
 				if (props.getAverageTemp() < ideal) {
-					newTemperatureLevel += difference;
+					newTemperatureLevel -= difference;
 				}
 			}
 		}
