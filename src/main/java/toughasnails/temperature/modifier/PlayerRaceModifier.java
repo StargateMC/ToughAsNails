@@ -72,7 +72,7 @@ public class PlayerRaceModifier extends TemperatureModifier {
 		case Ori:
 			break;
 		case Replicator:
-			if (temp.colderThan(Temps.COLD))
+			if (temp.colderThan(Temps.FRIGID))
 				newTemperatureLevel -= 10;
 			if (temp.hotterThan(Temps.HOT))
 				newTemperatureLevel += 10;
@@ -86,7 +86,7 @@ public class PlayerRaceModifier extends TemperatureModifier {
 				newTemperatureLevel += 25;
 			break;
 		case Wraith:
-			if (temp.colderThan(Temps.COLD))
+			if (temp.colderThan(Temps.FRIGID))
 				newTemperatureLevel -= 25;
 			if (temp.hotterThan(Temps.HOT))
 				newTemperatureLevel += 25;
