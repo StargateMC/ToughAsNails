@@ -38,31 +38,31 @@ public class PlayerRaceModifier extends TemperatureModifier {
 
 		switch (race) {
 		case Ancient:
-			if (temp.colderThan(Temps.COLD))
+			if (temp.colderThan(Temps.FRIGID))
 				newTemperatureLevel -= 25;
 			if (temp.hotterThan(Temps.HOT))
 				newTemperatureLevel += 25;
 			break;
 		case Asgard:
-			if (temp.colderThan(Temps.COLD))
+			if (temp.colderThan(Temps.FRIGID))
 				newTemperatureLevel -= 25;
 			if (temp.hotterThan(Temps.NORMAL))
 				newTemperatureLevel += 25;
 			break;
 		case Asuran:
-			if (temp.colderThan(Temps.COLD))
+			if (temp.colderThan(Temps.FRIGID))
 				newTemperatureLevel -= 5;
 			if (temp.hotterThan(Temps.HOT))
 				newTemperatureLevel += 5;
 			break;
 		case Goauld:
-			if (temp.colderThan(Temps.COLD))
+			if (temp.colderThan(Temps.FRIGID))
 				newTemperatureLevel -= 20;
 			if (temp.hotterThan(Temps.HOT))
 				newTemperatureLevel += 20;
 			break;
 		case Jaffa:
-			if (temp.colderThan(Temps.COLD))
+			if (temp.colderThan(Temps.FRIGID))
 				newTemperatureLevel -= 35;
 			if (temp.hotterThan(Temps.HOT))
 				newTemperatureLevel += 35;
@@ -80,7 +80,7 @@ public class PlayerRaceModifier extends TemperatureModifier {
 		case Tauri:
 			break;
 		case Tokra:
-			if (temp.colderThan(Temps.COLD))
+			if (temp.colderThan(Temps.FRIGID))
 				newTemperatureLevel -= 25;
 			if (temp.hotterThan(Temps.HOT))
 				newTemperatureLevel += 25;
