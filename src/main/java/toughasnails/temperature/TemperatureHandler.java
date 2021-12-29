@@ -51,7 +51,7 @@ public class TemperatureHandler extends StatHandlerBase implements ITemperature
         registerTemperatureModifier(new ArmorModifier("armor"));
         registerTemperatureModifier(new BiomeModifier("biome"));
         registerTemperatureModifier(new PlayerStateModifier("player_state"));
-        registerTemperatureModifier(new PlayerRaceModifier("player_race"));
+        //registerTemperatureModifier(new PlayerRaceModifier("player_race"));
         registerTemperatureModifier(new ObjectProximityModifier("object_proximity"));
         registerTemperatureModifier(new WeatherModifier("weather"));
         registerTemperatureModifier(new TimeModifier("time"));
