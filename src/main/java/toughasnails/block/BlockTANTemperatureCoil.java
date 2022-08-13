@@ -129,10 +129,10 @@ public class BlockTANTemperatureCoil extends BlockContainer implements ITANBlock
         switch (state.getValue(VARIANT))
         {
         case COOLING:
-            return new TileEntityTemperatureSpread(-10);
+            return new TileEntityTemperatureSpread(-50);
             
         case HEATING:
-            return new TileEntityTemperatureSpread(10);
+            return new TileEntityTemperatureSpread(50);
         }
         
         return null;

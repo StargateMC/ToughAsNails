@@ -1,4 +1,5 @@
 package toughasnails.temperature.modifier;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -8,6 +9,8 @@ import toughasnails.init.ModConfig;
 import zmaster587.advancedRocketry.dimension.DimensionManager;
 import zmaster587.advancedRocketry.dimension.DimensionProperties;
 import zmaster587.advancedRocketry.dimension.DimensionProperties.Temps;
+
+import java.util.Random;
 
 public class ARModifier extends TemperatureModifier {
 	public ARModifier(String id) {
@@ -19,10 +22,17 @@ public class ARModifier extends TemperatureModifier {
 			IModifierMonitor monitor) {
 		int temperatureLevel = initialTemperature.getRawValue();
 		int newTemperatureLevel = temperatureLevel;
-
-		if (world.provider.isSurfaceWorld()) {
+		if (world.provider.isSurfaceWorld() && world.provider.getDimension() > -8000) {
 			DimensionProperties props = DimensionManager.getEffectiveDimId(world.provider.getDimension(), pos);
 			if (props != null) {
+				int average = props.getAverageTemp();
+				if (props.getId() == DimensionManager.defaultSpaceDimensionProperties.getId()) {
+					if (new Random().nextFloat() < 0.5) {
+						average = Temps.TOOHOT.getTemp();
+					} else {
+						average = Temps.SNOWBALL.getTemp();
+					}
+				}
 				int ideal = Temps.NORMAL.getTemp();
 				int difference = Math.abs(ideal - props.getAverageTemp());
 				if (difference != 0)
