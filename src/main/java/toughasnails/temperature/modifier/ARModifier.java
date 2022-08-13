@@ -46,7 +46,7 @@ public class ARModifier extends TemperatureModifier {
 			}
 		}
 
-		monitor.addEntry(new IModifierMonitor.Context(this.getId(), "Planet Base Temperature", initialTemperature,
+		monitor.addEntry(new IModifierMonitor.Context(this.getId(), "Base Temperature", initialTemperature,
 				new Temperature(newTemperatureLevel)));
 
 		return new Temperature(newTemperatureLevel);

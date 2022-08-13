@@ -80,21 +80,11 @@ processResources {
     }
 }
 
-import net.minecraftforge.gradle.tasks.JenkinsChangelog
 import net.minecraftforge.gradle.common.Constants
 
-task changelog(type: JenkinsChangelog) {
-    def buildNumber = "${System.getenv().BUILD_NUMBER}"
 
-    serverRoot = 'http://ci.jenkins.minecraftforge.net/'
-    jobName = 'ToughAsNails'
-    authName = 'console_script';
-    authPassword = "$System.env.changelog_pass";
-    targetBuild = buildNumber.toString();
-    output = 'build/libs/' + project.getName() + '-' + project.version + '-changelog.txt';
-}
 
-tasks.build.dependsOn('changelog')
+
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
@@ -149,7 +139,7 @@ task listOutputs << {
 tasks.build.finalizedBy('listOutputs')
 
 artifacts {
-    archives changelog.output
+
     archives sourcesJar
     archives deobfJar
 	archives apiJar
